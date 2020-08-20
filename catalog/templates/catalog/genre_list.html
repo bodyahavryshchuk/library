@@ -1,0 +1,29 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Список жанрів</h1>
+
+
+
+    {% if genre_list %}
+  
+<dl>
+      {% for genre in genre_list %}
+      <div class="list-group" style="width: 7.5cm; margin-top: 10px">
+          <button type="button" class="list-group-item list-group-item-action ">
+            <a href="{{ genre.get_absolute_url }}">{{ genre.name }}</a>
+          </button>
+        </div>
+      
+      {% endfor %}
+    </dl>
+    
+
+    {% else %}
+      <p>Жанрів немає.</p>
+    {% endif %}   
+    {% if user.is_authenticated %}
+  <a class="btn btn-primary" href="{% url 'genre_create'%}">Додати жанр</a>   
+{% endif %}     
+{% endblock %}
+

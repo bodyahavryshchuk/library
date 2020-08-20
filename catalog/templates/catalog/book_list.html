@@ -1,0 +1,43 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Список книг</h1>
+
+<div style="margin-left: -223px">
+ <form class="form-inline" action="{% url 'search' %}" method="get">
+  <div class="form-group mb-2">
+    <label for="staticEmail2" class="sr-only">Пошук</label>
+    <input type="text" readonly class="form-control-plaintext" id="staticEmail2">
+  </div>
+  <div class="form-group mx-sm-3 mb-2">
+    <label for="q" class="sr-only">Пошук</label>
+    <input  class="form-control" name="q" placeholder="Пошук книги">
+  </div>
+  <button type="submit" class="btn btn-primary mb-2">Знайти</button>
+</form>
+    </div>
+    {% if book_list %}
+
+<dl>
+
+
+      {% for book in book_list %}
+
+      <div class="list-group" style="width: 7.5cm; margin-top: 10px">
+
+        <button type="button" class="list-group-item list-group-item-action ">
+          <a href="{{ book.get_absolute_url }}">{{ book.title }}</a>({{book.author}})
+        </button>
+      </div>
+      
+      {% endfor %}
+    </dl>
+    
+    {% else %}
+      <p>Книг немає.</p>
+    {% endif %}     
+    {% if user.is_authenticated %}
+    <a class="btn btn-primary" href="{% url 'book_create'%}">Додати книгу</a>    
+{% endif %}   
+{% endblock %}
+

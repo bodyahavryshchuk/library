@@ -1,0 +1,28 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{% block content %}
+
+
+<div class="list-group" style="width: 15cm" >
+    <button type="button" class="list-group-item list-group-item-action active">
+        Назва: {{ book.title }}
+    </button>
+    <button type="button" class="list-group-item list-group-item-action">Автор: <a href="{% url 'author-detail' book.author.pk %}">{{ book.author }}</a></button>
+    <button type="button" class="list-group-item list-group-item-action">Опис: {{ book.summary }}</button>
+    <button type="button" class="list-group-item list-group-item-action">Мова: {{ book.language }}</button>
+   
+    <button type="button" class="list-group-item list-group-item-action" disabled>
+        {% if book.book_file %}
+        <a class="btn btn-primary" href="{{ book.book_file.url }}" target="_blank">Читати книгу</a>
+        {% endif %}
+        {% if user.is_authenticated%}
+        <a class="btn btn-primary" href="{% url 'book_update' book.pk %}" role="button">Редагувати книгу</a>
+        <a class="btn btn-primary" href="{% url 'book_delete' book.pk %}" role="button">Видалити книгу</a>
+        {% endif %}
+    </button>
+   
+    
+</div>
+
+{% endblock %}
+
